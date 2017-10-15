@@ -1,8 +1,35 @@
+#include <stdlib.h>
 #include <stdio.h>
+#include <pthread.h>
+
+void *start_thread(void *arg)
+{
+	printf("Thread #%d\n", *(int*)arg);
+
+	return NULL;
+}
 
 int main()
 {
-	printf("Follow the white rabbit.\n");
+	int n_threads = 10;
+
+	pthread_t *threads = malloc(n_threads*sizeof(pthread_t));
+	int *ids = malloc(n_threads*sizeof(int));
+	for (int i = 0; i < n_threads; i++)
+		ids[i] = i;
+
+	printf("Starting %d threads...\n", n_threads);
+
+	for (int i_thread = 0; i_thread < n_threads; i_thread++)
+		pthread_create(threads + i_thread, NULL, start_thread, ids + i_thread);
+
+	for (int i_thread = 0; i_thread < n_threads; i_thread++)
+		pthread_join(threads[i_thread], NULL);
+
+	printf("All threads finished. Exiting...\n");
+
+	free(threads);
+	free(ids);
 
 	return 0;
 }

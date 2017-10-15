@@ -1,6 +1,6 @@
 cc = cc
 c_opt = -Wall -Wpedantic -Werror
-l_opt =
+l_opt = -pthread
 
 out = x
 obj = main.o
