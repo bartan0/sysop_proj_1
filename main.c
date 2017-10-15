@@ -2,9 +2,14 @@
 #include <stdio.h>
 #include <pthread.h>
 
+int counter = 0;
+
 void *start_thread(void *arg)
 {
 	printf("Thread #%d\n", *(int*)arg);
+
+	for (int i = 0; i < 100000; i++)
+		counter++;
 
 	return NULL;
 }
@@ -26,7 +31,7 @@ int main()
 	for (int i_thread = 0; i_thread < n_threads; i_thread++)
 		pthread_join(threads[i_thread], NULL);
 
-	printf("All threads finished. Exiting...\n");
+	printf("All threads finished.\n\ncounter = %d\n", counter);
 
 	free(threads);
 	free(ids);
