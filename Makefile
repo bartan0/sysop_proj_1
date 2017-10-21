@@ -1,5 +1,5 @@
 cc = cc
-c_opt = -Wall -Wpedantic -Werror
+c_opt = -Wall -Wpedantic -Werror -std=c99
 l_opt = -pthread
 
 out = x
